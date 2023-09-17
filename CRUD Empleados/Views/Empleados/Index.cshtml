@@ -13,6 +13,7 @@
             <th>Fecha de Nacimiento</th>
             <th>Puesto</th>
             <th>Sueldo</th>
+            <th> </th>
         </tr>
     </thead>
     <tbody>
@@ -28,6 +29,7 @@
                 <td>@empleado.Nacimiento.ToString("dd-MM-yyyy")</td>
                 <td>@empleado.Puesto</td>
                 <td>@empleado.Sueldo</td>
+                <td><a href="Empleados/Editar/@empleado.Id">Editar</a></td>
             </tr>
         }
     </tbody>

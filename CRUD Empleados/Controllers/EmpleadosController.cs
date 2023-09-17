@@ -46,7 +46,53 @@ namespace CRUD_Empleados.Controllers
             };
             await mvcDemoDbContext.Empleados.AddAsync(empleado);
             await mvcDemoDbContext.SaveChangesAsync();
-            return RedirectToAction("Agregar");
+            return RedirectToAction("Index");
+        }
+
+        // Metodo Get para tomar un id de la lista y editarlo
+        [HttpGet]
+        public async Task<IActionResult> Editar(Guid id)
+        {
+            var empleado = await mvcDemoDbContext.Empleados.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (empleado != null)
+            {
+                var viewModel = new EditarEmpleadoViewModel()
+                {
+                    Id = empleado.Id,
+                    Nombre = empleado.Nombre,
+                    Email = empleado.Email,
+                    Nacimiento = empleado.Nacimiento,
+                    Puesto = empleado.Puesto,
+                    Sueldo = empleado.Sueldo,
+                };
+                return await Task.Run(() => View("Editar", viewModel));
+            }
+
+            
+
+            return RedirectToAction("Index");
+        }
+
+        // Metodo Post para aceptar los cambios en el empleado
+        [HttpPost]
+        public async Task<IActionResult> Editar(EditarEmpleadoViewModel model)
+        {
+            var empleado = await mvcDemoDbContext.Empleados.FindAsync(model.Id);
+
+            if (empleado != null)
+            {
+                empleado.Nombre = model.Nombre;
+                empleado.Email = model.Email;
+                empleado.Nacimiento = model.Nacimiento;
+                empleado.Puesto = model.Puesto;
+                empleado.Sueldo = model.Sueldo;
+
+                await mvcDemoDbContext.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
         }
     }
 }
