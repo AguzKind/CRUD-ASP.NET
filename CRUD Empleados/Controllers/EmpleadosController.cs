@@ -94,5 +94,20 @@ namespace CRUD_Empleados.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        // Metodo Post para eliminar el empleado segun el id
+        [HttpPost]
+        public async Task<IActionResult> Borrar(EditarEmpleadoViewModel model)
+        {
+            var empleado = await mvcDemoDbContext.Empleados.FindAsync(model.Id);
+            if (empleado != null) 
+            {
+                mvcDemoDbContext.Empleados.Remove(empleado);
+                await mvcDemoDbContext.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
