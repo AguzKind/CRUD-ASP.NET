@@ -1,0 +1,34 @@
+﻿@model List<CRUD_Empleados.Models.Domain.Empleado>
+@{
+}
+
+<h1>Lista de empleados</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Puesto</th>
+            <th>Sueldo</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            /*CARGA EN CADA FILA UN EMPLEADO DE LA LISTA CRUD_Empleados.Models.Domain.Empleado*/
+        }
+        @foreach (var empleado in Model)
+        {
+            <tr>
+                <td>@empleado.Id</td>
+                <td>@empleado.Nombre</td>
+                <td>@empleado.Email</td>
+                <td>@empleado.Nacimiento.ToString("dd-MM-yyyy")</td>
+                <td>@empleado.Puesto</td>
+                <td>@empleado.Sueldo</td>
+            </tr>
+        }
+    </tbody>
+</table>

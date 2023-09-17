@@ -1,7 +1,13 @@
+using CRUD_Empleados.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+// Conexion a la db
+builder.Services.AddDbContext<MVCDemoDbContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("MvcDemoConnectionString")));
 
 var app = builder.Build();
 
